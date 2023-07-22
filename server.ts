@@ -11,9 +11,9 @@ app.use(bodyParser.json());
 app.use('/users', usersRoutes);
 
 app.listen(port, () => {
-    console.log(`App listening on port: http://localhost:${port}/`)
+    console.log(`App listening on port: http://localhost:${port}/`);
 });
 
 app.get('/', (req, res) => {
     res.send("WORKING!");
-})
+});
