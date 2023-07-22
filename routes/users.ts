@@ -1,6 +1,7 @@
 import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import Joi from 'joi';
+import { User } from  '../types';
 
 const router = express.Router();
 
@@ -8,9 +9,9 @@ const schema = Joi.object({
     login: Joi.string().min(6).max(20).required(),
     password: Joi.string().regex(/^(?=.*[a-zA-Z])(?=.*\d)/).required(),
     age: Joi.number().min(4).max(130).required()
-})
+});
 
-let users = [
+let users: User[] = [
     {
         login: "Jon",
         password: "qwerty",
@@ -46,7 +47,7 @@ let users = [
         isDeleted: false,
         id: "xx43c28f-fd8a-4f65-98a9-9d385a0911c4"
     }
-]
+];
 
 router.get('/', (req, res) => {
     if(Object.keys(req.query).length > 0){
