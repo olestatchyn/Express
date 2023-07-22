@@ -1,0 +1,7 @@
+{
+    "id": 123456789,
+    "login": "Jon",
+    "password": "qwerty",
+    "age": 22,
+    "isDeleted": false
+}
