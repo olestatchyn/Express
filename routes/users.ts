@@ -50,7 +50,7 @@ let users: User[] = [
 ];
 
 router.get('/', (req, res) => {
-    if(Object.keys(req.query).length > 0){
+    if(Object.keys(req.query).length == 2){
         const loginSubstring = req.query.loginSubstring as string;
         const limit = Number(req.query.limit);
         let foundUsers: typeof users = [];
