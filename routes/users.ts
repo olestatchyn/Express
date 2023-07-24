@@ -2,8 +2,10 @@ import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import Joi from 'joi';
 import { User } from  '../types';
+import client from '../postgreDB';
 
 const router = express.Router();
+client.connect();
 
 const schema = Joi.object({
     login: Joi.string().min(6).max(20).required(),
@@ -29,23 +31,23 @@ let users: User[] = [
     {
         login: "Alex",
         password: "40ifd3jdc",
-        age: 38,
+        age: 91,
         isDeleted: false,
-        id: "cd46c28f-fd8a-4f65-98a9-9d385a0911c4"
+        id: "cd46c28f-fd8a-4905-98a9-rfaf5a0911c4"
     },
     {
         login: "Alex124",
         password: "j34f52f83",
-        age: 38,
+        age: 25,
         isDeleted: false,
-        id: "hg46c28f-fd8a-4f11-98a9-9d385a0911c4"
+        id: "hg3gsy8f-fd8a-4f11-9549-ovfyta0911c4"
     },
     {
         login: "BossAlex",
         password: "34t53gr34",
-        age: 38,
+        age: 12,
         isDeleted: false,
-        id: "xx43c28f-fd8a-4f65-98a9-9d385a0911c4"
+        id: "xxifnc3d-fd8a-gy65-94a9-9d385e0vetc0"
     }
 ];
 
