@@ -6,7 +6,7 @@ import User from '../models/user';
 const router = express.Router();
 const { Op } = require('sequelize');
 
-const schema = Joi.object({
+const userSchema = Joi.object({
     login: Joi.string().min(6).max(20).required(),
     password: Joi.string().regex(/^(?=.*[a-zA-Z])(?=.*\d)/).required(),
     age: Joi.number().min(4).max(130).required()
@@ -64,12 +64,15 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
     const foundUser = await User.findAll({ where: { id }});
+    if (!foundUser) {
+        return res.send(`User with the ID ${id} not found`);
+    }
     res.send(foundUser);
 });
 
 router.post('/', async (req, res) => {
     const user = req.body;
-    const { error } = schema.validate(req.body);
+    const { error } = userSchema.validate(req.body);
 
     if (error) {
         console.log(error.message);
@@ -93,18 +96,18 @@ router.patch('/:id', async (req, res) => {
     const { login, password, age } = req.body;
     const userToBeUpdated = await User.findByPk(id);
     if (!userToBeUpdated) {
-        return res.status(404).send(`User with the ID ${id} not found`);
+        return res.send(`User with the ID ${id} not found`);
     }
 
-    const { error } = schema.validate(req.body);
+    const { error } = userSchema.validate(req.body);
 
     if (error) {
         console.log(error.message);
         return res.send('Invalid request');
     }
-    if (login) userToBeUpdated.login = login;
-    if (password) userToBeUpdated.password = password;
-    if (age) userToBeUpdated.age = age;
+    userToBeUpdated.login = login;
+    userToBeUpdated.password = password;
+    userToBeUpdated.age = age;
 
     await userToBeUpdated.save();
     res.send(`User with the ID ${id} was updated`);
@@ -116,7 +119,7 @@ router.patch('/delete/:id', async (req, res) => {
     const userToBeUpdated = await User.findByPk(id);
   
     if (!userToBeUpdated) {
-        return res.status(404).send(`User with the ID ${id} not found`);
+        return res.send(`User with the ID ${id} not found`);
     }
   
     userToBeUpdated.isDeleted = true;

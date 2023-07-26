@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import usersRoutes from './routes/users';
+import groupRoutes from './routes/groups';
 import sequelize from './data-access/postgreDB'
 
 const app = express();
@@ -8,6 +9,7 @@ const port = 5000;
 
 app.use(bodyParser.json());
 app.use('/users', usersRoutes);
+app.use('/groups', groupRoutes);
 
 (async () => {
     try {
@@ -19,7 +21,6 @@ app.use('/users', usersRoutes);
     }
 })();
 
-
 app.listen(port, () => {
     console.log(`App listening on port: http://localhost:${port}/`);
 });
@@ -27,4 +28,3 @@ app.listen(port, () => {
 app.get('/', (req, res) => {
     res.send("WORKING!");
 });
-
