@@ -12,7 +12,7 @@ class Group extends Model {
 Group.init(
     {
         id: {
-            type: DataTypes.UUIDV4,
+            type: DataTypes.STRING,
             primaryKey: true,
         },
         name: {

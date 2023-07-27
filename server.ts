@@ -1,8 +1,9 @@
 import express from 'express';
+import sequelize from './data-access/postgreDB';
 import bodyParser from 'body-parser';
 import usersRoutes from './routes/users';
 import groupRoutes from './routes/groups';
-import sequelize from './data-access/postgreDB'
+import userGroupRoutes from './routes/userGroups';
 
 const app = express();
 const port = 5000;
@@ -10,6 +11,7 @@ const port = 5000;
 app.use(bodyParser.json());
 app.use('/users', usersRoutes);
 app.use('/groups', groupRoutes);
+app.use('/userGroups', userGroupRoutes);
 
 (async () => {
     try {

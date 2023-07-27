@@ -7,6 +7,7 @@ const sequelize = new Sequelize({
     host: "localhost",
     port: 5432,
     dialect: "postgres",
+    logging: false,
 });
 
 export default sequelize;
