@@ -2,6 +2,7 @@ import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import Joi from 'joi';
 import User from '../models/user';
+import logError from '../errors/errorLogger';
 
 const router = express.Router();
 const { Op } = require('sequelize');
@@ -30,6 +31,7 @@ router.get('/', async (req, res) => {
             limit: Number(limit),
             order: [['login', 'ASC']],
         });
+        throw new Error('This is a test error.');
         res.send(foundUsers);
     } else {
         const allUsers = await User.findAll({
@@ -38,6 +40,34 @@ router.get('/', async (req, res) => {
         res.send(allUsers);
     }
 });
+
+// router.get('/', async (req, res) => {
+//     try{
+//         if(Object.keys(req.query).length == 2){
+//             const { loginSubstring, limit } = req.query;
+//             const foundUsers = await User.findAll({
+//                 where: {
+//                     login: { 
+//                         [Op.like]: `%${loginSubstring}%`, 
+//                     },
+//                 },
+//                 limit: Number(limit),
+//                 order: [['login', 'ASC']],
+//             });
+//             throw new Error('This is a test error.');
+//             res.send(foundUsers);
+//         } else {
+//             const allUsers = await User.findAll({
+//                 order: [['login', 'ASC']],
+//             });
+//             res.send(allUsers);
+//         }
+//     } catch(err) {
+//         if (err instanceof Error) {
+//             logError(err, req, res);
+//         }
+//     }
+// });
 
 router.get('/:id', async (req, res) => {
     const { id } = req.params;

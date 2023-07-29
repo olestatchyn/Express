@@ -56,7 +56,7 @@ router.patch('/:id', async (req, res) => {
         console.log(bodyValidation.error.message);
         return res.send('Invalid request');
     }
-
+ 
     const { id } = req.params;
     let groupToBeUpdated = await Group.findByPk(id);
 
