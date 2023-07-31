@@ -1,8 +1,12 @@
 import express from 'express';
 import sequelize from './data-access/postgreDB';
 import bodyParser from 'body-parser';
+import cors from 'cors';
+import corsOptions from './services/corsoptions';
 import logError from './errors/errorLogger';
 import errorHandler from './errors/errorHandler';
+import loginRoutes from './routes/login';
+import { authenticateToken } from './services/webtoken';
 import usersRoutes from './routes/users';
 import groupRoutes from './routes/groups';
 import userGroupRoutes from './routes/userGroups';
@@ -17,12 +21,23 @@ process.on('uncaughtException', (err) => {
   }, 1000);
 });
 
+app.use(cors(corsOptions));
+
+app.use((req, res, next) => {
+  if (req.path !== '/login/') {
+    authenticateToken(req, res, next);
+  } else {
+    next();
+  }
+});
+
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
 });
 
 app.use(bodyParser.json());
+app.use('/login', loginRoutes);
 app.use('/users', usersRoutes);
 app.use('/groups', groupRoutes);
 app.use('/userGroups', userGroupRoutes);

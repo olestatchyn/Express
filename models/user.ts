@@ -7,6 +7,7 @@ class User extends Model {
     password!: string;
     age!: number;
     isDeleted!: boolean;
+    token!: string;
     createdAt!: string;
     updatedAt!: string;
 }
@@ -31,6 +32,11 @@ User.init(
         isDeleted: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
+            defaultValue: false,
+        },
+        token: {
+            type: DataTypes.STRING,
+            allowNull: true,
             defaultValue: false,
         },
         createdAt: {

@@ -2,7 +2,6 @@ import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import Joi from 'joi';
 import User from '../models/user';
-import logError from '../errors/errorLogger';
 
 const router = express.Router();
 const { Op } = require('sequelize');
@@ -31,7 +30,7 @@ router.get('/', async (req, res) => {
             limit: Number(limit),
             order: [['login', 'ASC']],
         });
-        throw new Error('This is a test error.');
+        // throw new Error('This is a test error.');
         res.send(foundUsers);
     } else {
         const allUsers = await User.findAll({
