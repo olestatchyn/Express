@@ -40,34 +40,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-// router.get('/', async (req, res) => {
-//     try{
-//         if(Object.keys(req.query).length == 2){
-//             const { loginSubstring, limit } = req.query;
-//             const foundUsers = await User.findAll({
-//                 where: {
-//                     login: { 
-//                         [Op.like]: `%${loginSubstring}%`, 
-//                     },
-//                 },
-//                 limit: Number(limit),
-//                 order: [['login', 'ASC']],
-//             });
-//             throw new Error('This is a test error.');
-//             res.send(foundUsers);
-//         } else {
-//             const allUsers = await User.findAll({
-//                 order: [['login', 'ASC']],
-//             });
-//             res.send(allUsers);
-//         }
-//     } catch(err) {
-//         if (err instanceof Error) {
-//             logError(err, req, res);
-//         }
-//     }
-// });
-
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
     const foundUser = await User.findAll({ where: { id }});
@@ -133,4 +105,4 @@ router.patch('/delete/:id', async (req, res) => {
     res.send(`User with the ID ${id} was deleted`);
 });
 
-export default router; 
+export default router;

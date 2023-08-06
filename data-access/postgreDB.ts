@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes, Model } from 'sequelize';
+import { Sequelize } from 'sequelize';
 
 const sequelize = new Sequelize({
     database: "homework",

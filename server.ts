@@ -5,8 +5,8 @@ import cors from 'cors';
 import corsOptions from './services/corsoptions';
 import logError from './errors/errorLogger';
 import errorHandler from './errors/errorHandler';
-import loginRoutes from './routes/login';
 import { authenticateToken } from './services/webtoken';
+import loginRoutes from './routes/login';
 import usersRoutes from './routes/users';
 import groupRoutes from './routes/groups';
 import userGroupRoutes from './routes/userGroups';
@@ -59,6 +59,4 @@ app.listen(port, () => {
     console.log(`App listening on port: http://localhost:${port}/`);
 });
 
-app.get('/', (req, res) => {
-    res.send("WORKING!");
-});
+export default app;

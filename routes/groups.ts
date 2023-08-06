@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
     const foundGroup = await Group.findAll({ where: { id }});
-    if (!foundGroup) {
+    if (foundGroup.length == 0) {
         return res.send(`Group with the ID ${id} not found`);
     }
     res.send(foundGroup);
@@ -45,7 +45,6 @@ router.post('/', async (req, res) => {
         permissions: group.permissions,
     });
 
-    console.log('New group added');
     res.send('New group added');
 });
 
@@ -82,7 +81,7 @@ router.delete('/:id', async (req, res) => {
 
     await foundGroup.destroy();
 
-    res.send(foundGroup);
+    res.send(`Group with the ID ${id} was destroyed`);
 });
 
 export default router; 
